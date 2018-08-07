@@ -3,6 +3,7 @@ package io.fabric8.launcher;
 import io.fabric8.launcher.vertx.FurnaceVerticle;
 import io.fabric8.launcher.vertx.ScriptHandler;
 import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 
@@ -12,7 +13,10 @@ import io.vertx.ext.web.handler.BodyHandler;
 public class Main {
 
     public static void main(String[] args) {
-        Vertx vertx = Vertx.vertx();
+        final VertxOptions vertOptions = new VertxOptions()
+                .setMaxEventLoopExecuteTime(3000000000L)
+                .setMaxWorkerExecuteTime(3000000000L);
+        Vertx vertx = Vertx.vertx(vertOptions);
         vertx.deployVerticle(FurnaceVerticle.class.getName());
         Router router = Router.router(vertx);
         // enable parsing of request bodies

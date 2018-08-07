@@ -5,8 +5,8 @@ import java.io.File;
 import io.vertx.core.AbstractVerticle;
 import org.jboss.forge.addon.projects.Projects;
 import org.jboss.forge.furnace.Furnace;
-import org.jboss.forge.furnace.impl.FurnaceImpl;
 import org.jboss.forge.furnace.repositories.AddonRepositoryMode;
+import org.jboss.forge.furnace.se.FurnaceFactory;
 import org.jboss.forge.furnace.util.AddonCompatibilityStrategies;
 
 /**
@@ -18,10 +18,10 @@ public class FurnaceVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
-        furnace = new FurnaceImpl();
+        furnace = FurnaceFactory.getInstance(getClass().getClassLoader());
         furnace.addRepository(AddonRepositoryMode.IMMUTABLE, new File("/home/ggastald/workspace/forge-core/dist/target/forge-distribution-3.9.1-SNAPSHOT/addons"));
         furnace.setAddonCompatibilityStrategy(AddonCompatibilityStrategies.LENIENT);
-        furnace.startAsync(getClass().getClassLoader());
+        furnace.startAsync();
         Projects.disableCache();
     }
 

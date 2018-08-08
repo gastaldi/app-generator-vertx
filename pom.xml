@@ -55,27 +55,27 @@
 
   <build>
     <plugins>
-      <!--<plugin>-->
-      <!--<groupId>org.jboss.forge.furnace</groupId>-->
-      <!--<artifactId>furnace-maven-plugin</artifactId>-->
-      <!--<version>2.28.1.Final</version>-->
-      <!--<executions>-->
-      <!--<execution>-->
-      <!--<id>deploy-addons</id>-->
-      <!--<phase>test-compile</phase>-->
-      <!--<goals>-->
-      <!--<goal>addon-install</goal>-->
-      <!--</goals>-->
-      <!--<inherited>false</inherited>-->
-      <!--<configuration>-->
-      <!--<addonRepository>${project.build.directory}/addons</addonRepository>-->
-      <!--<addonIds>-->
-      <!--<addonId>org.jboss.forge.addon:core,${forge.version}</addonId>-->
-      <!--</addonIds>-->
-      <!--</configuration>-->
-      <!--</execution>-->
-      <!--</executions>-->
-      <!--</plugin>-->
+      <plugin>
+        <groupId>org.jboss.forge.furnace</groupId>
+        <artifactId>furnace-maven-plugin</artifactId>
+        <version>2.28.1.Final</version>
+        <executions>
+          <execution>
+            <id>deploy-addons</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>addon-install</goal>
+            </goals>
+            <inherited>false</inherited>
+            <configuration>
+              <addonRepository>${project.build.directory}/addons</addonRepository>
+              <addonIds>
+                <addonId>org.jboss.forge.addon:core,${forge.version}</addonId>
+              </addonIds>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

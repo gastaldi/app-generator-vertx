@@ -1,7 +1,7 @@
-package io.fabric8.launcher;
+package io.fabric8.launcher.generator;
 
-import io.fabric8.launcher.vertx.FurnaceVerticle;
-import io.fabric8.launcher.vertx.ScriptHandler;
+import io.fabric8.launcher.generator.handlers.ScriptHandler;
+import io.fabric8.launcher.generator.verticles.FurnaceVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -17,8 +17,7 @@ public class Main {
         Router router = Router.router(vertx);
         // enable parsing of request bodies
         router.route().handler(BodyHandler.create());
-        router.post("/api/forge/zip")
-                .handler(new ScriptHandler());
+        router.post("/api/forge/zip").blockingHandler(new ScriptHandler());
         vertx.createHttpServer()
                 .requestHandler(router::accept)
                 .listen(8080);

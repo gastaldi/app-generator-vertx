@@ -1,4 +1,4 @@
-package io.fabric8.launcher.util;
+package io.fabric8.launcher.generator.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -67,11 +67,12 @@ public class Zip {
      * @throws IOException if any I/O error happens
      */
     public static void zip(String root, final Path directory, OutputStream os) throws IOException {
+        String prefix = (root == null || root.isEmpty()) ? "" : root + File.separator;
         try (final ZipOutputStream zos = new ZipOutputStream(os)) {
             Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    String entry = root + File.separator + directory.relativize(file).toString();
+                    String entry = prefix + directory.relativize(file).toString();
                     zos.putNextEntry(new ZipEntry(entry));
                     Files.copy(file, zos);
                     zos.closeEntry();
@@ -80,7 +81,7 @@ public class Zip {
 
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    String entry = root + File.separator + directory.relativize(dir).toString() + File.separator;
+                    String entry = prefix + directory.relativize(dir).toString() + File.separator;
                     zos.putNextEntry(new ZipEntry(entry));
                     zos.closeEntry();
                     return FileVisitResult.CONTINUE;

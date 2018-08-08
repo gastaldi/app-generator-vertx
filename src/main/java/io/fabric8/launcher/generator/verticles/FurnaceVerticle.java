@@ -1,4 +1,4 @@
-package io.fabric8.launcher.vertx;
+package io.fabric8.launcher.generator.verticles;
 
 import java.io.File;
 
@@ -19,7 +19,7 @@ public class FurnaceVerticle extends AbstractVerticle {
     @Override
     public void start() {
         furnace = FurnaceFactory.getInstance(getClass().getClassLoader());
-        furnace.addRepository(AddonRepositoryMode.IMMUTABLE, new File("/home/ggastald/workspace/forge-core/dist/target/forge-distribution-3.9.1-SNAPSHOT/addons"));
+        furnace.addRepository(AddonRepositoryMode.IMMUTABLE, new File("target/addons"));
         furnace.setAddonCompatibilityStrategy(AddonCompatibilityStrategies.LENIENT);
         furnace.startAsync();
         Projects.disableCache();
